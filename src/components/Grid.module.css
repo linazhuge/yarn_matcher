@@ -1,18 +1,18 @@
-.grid {
-  display: grid;
-  border-radius: 8px;
+.wrapper {
+  flex: 1;
+  min-height: 0;
   overflow: hidden;
+  cursor: grab;
+  border-radius: 8px;
   box-shadow: 0 4px 20px rgba(124, 58, 237, 0.15);
-  flex-shrink: 0;
+  background: #fff;
 }
 
-.cell {
-  width: 14px;
-  height: 14px;
-  font-size: 6.5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  border: 0.5px solid rgba(0, 0, 0, 0.06);
+.wrapper:active {
+  cursor: grabbing;
+}
+
+.canvas {
+  display: block;
+  will-change: transform;
 }

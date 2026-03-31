@@ -1,14 +1,19 @@
 import { useRef, useState } from "react";
 import styles from "./Upload.module.css";
 
-export default function Upload({ onImage, compact = false }) {
+const MAX_FILE_SIZE_MB = 10;
+
+export default function Upload({ onImage, onError, compact = false }) {
   const inputRef = useRef(null);
   const [dragging, setDragging] = useState(false);
 
   function handleFile(file) {
-    if (file && file.type.startsWith("image/")) {
-      onImage(file);
+    if (!file || !file.type.startsWith("image/")) return;
+    if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+      onError?.(`File too large (${(file.size / 1024 / 1024).toFixed(1)}MB). Maximum is ${MAX_FILE_SIZE_MB}MB.`);
+      return;
     }
+    onImage(file);
   }
 
   function handleChange(e) {
@@ -42,7 +47,7 @@ export default function Upload({ onImage, compact = false }) {
     >
       <span className={styles.icon}>🧵</span>
       <p className={styles.primary}>Drop your image here</p>
-      <p className={styles.secondary}>or click to browse</p>
+      <p className={styles.secondary}>or click to browse · max 250,000 pixels, 10MB</p>
       <input ref={inputRef} type="file" accept="image/*" onChange={handleChange} hidden />
     </div>
   );
