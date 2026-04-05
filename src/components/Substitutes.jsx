@@ -21,18 +21,20 @@ function Swatch({ thread, label }) {
 
 export default function Substitutes({ legend }) {
   return (
-    <div className={styles.list}>
-      {legend.map((entry) => (
-        <div key={entry.number} className={styles.row}>
-          <Swatch thread={entry.thread} label={entry.number} />
-          <div className={styles.arrow}>→</div>
-          <div className={styles.alternatives}>
-            {entry.alternatives.map((alt) => (
-              <Swatch key={alt.code} thread={alt} />
-            ))}
+    <div className={styles.scroll}>
+      <div className={styles.list}>
+        {legend.map((entry) => (
+          <div key={entry.number} className={styles.row}>
+            <Swatch thread={entry.thread} label={entry.number} />
+            <div className={styles.arrow}>→</div>
+            <div className={styles.alternatives}>
+              {entry.alternatives.map((alt) => (
+                <Swatch key={alt.code} thread={alt} />
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
